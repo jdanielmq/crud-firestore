@@ -6,6 +6,7 @@ import { firebase } from './firebase'
 function App() {
 
   const [tareas, setTareas] = React.useState([]);
+  const [tarea,setTarea] = React.useState('');
 
   React.useEffect(() => {
 
@@ -23,9 +24,22 @@ function App() {
     obtenerDatos();
   }, [])
 
+  const agregarTarea = async (e) => {
+    e.preventDefault();
+    console.log(tarea);
+    if(!tarea.trim()){
+      console.log('Debe ingresar una tarea.');
+      return ;
+    }
+
+    
+  }
+
+
   return (
     <div className="container">
       <h1 className="text-center">Proyecto Crud Firestore</h1>
+        <br/>
         <div className="row">
           <div className="col-md-6">
             <ul className="list-group">
@@ -42,7 +56,17 @@ function App() {
              
           </div>
           <div className="col-md-6">
-              Formulario
+              <h3>Formulario</h3>
+              <form onSubmit={ agregarTarea }>
+                <input 
+                    type="text" 
+                    placeholder = "Ingrese tarea"
+                    className="form-control mb-2"
+                    onChange = {e => setTarea(e.target.value)}
+                    value = { tarea }
+                    />
+                <button className="btn btn-dark btn-block" type="submit"> Agregar </button>
+              </form>
           </div>
         </div>
 
