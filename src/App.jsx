@@ -32,7 +32,27 @@ function App() {
       return ;
     }
 
-    
+    try {
+        const db = firebase.firestore();
+        const nuevaTarea = {
+          name: tarea,
+          fecha: Date.now()
+        }
+
+        const data = await db.collection('tareas').add(nuevaTarea);
+
+        setTareas([
+          ...tareas,
+          {...nuevaTarea, id: data.id}
+        ]);
+        
+        setTarea('');
+      
+    } catch (error) {
+      console.log(error);
+    }
+
+
   }
 
 
